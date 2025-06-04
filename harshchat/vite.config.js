@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
    server: {
-    allowedHosts: ['chatherr.com'] // Add this line
+    allowedHosts: ['chatherr.com'] 
+    allowedHosts: ['www.chatherr.com']// Add this line
   },
   plugins: [react()],
 })
