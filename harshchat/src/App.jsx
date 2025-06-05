@@ -264,7 +264,7 @@ const App = () => {
       <main className="main">
         {!chatVisible ? (
           <div className="join-card">
-            <h2 className="join-title">Welcome to Chatherr!</h2>
+            <h2 className="join-title"> Hey Welcome to Chatherr!</h2>
             <p className="join-quote">"Make new friends in our cozy chat room! 💕 Share messages and cute pictures in this safe, anonymous space. Perfect for connecting with others!"</p>
             
             <div className="form-group">
