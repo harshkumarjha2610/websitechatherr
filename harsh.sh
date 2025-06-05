@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Assign first argument as commit message
@@ -10,7 +11,7 @@ if [ -z "$m" ]; then
 fi
 
 # Pull changes from all branches
-git pull --all
+git pull origin main
 
 # Add all changes to the staging area
 git add .
@@ -19,7 +20,7 @@ git add .
 git commit -m "$m"
 
 # Push changes to all branches
-git push --all
+git push origin main
 
 # Check if git push was successful
 if [ $? -eq 0 ]; then
