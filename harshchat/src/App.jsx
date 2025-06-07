@@ -24,7 +24,7 @@ const App = () => {
 
   // Socket.io connection and event handlers
   useEffect(() => {
-    socket.current = io('http://localhost:8080', {
+    socket.current = io('https://server.chatherr.com', {
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
@@ -59,7 +59,7 @@ const App = () => {
     });
 
     socket.current.on('image-message', ({ imageUrl, sender, expiresAt }) => {
-      const fullImageUrl = `http://localhost:8080${imageUrl}`;
+      const fullImageUrl = `https://server.chatherr.com${imageUrl}`;
       setMessages((prev) => [...prev, { 
         sender, 
         imageUrl: fullImageUrl, 
@@ -177,7 +177,7 @@ const App = () => {
         }, (response) => {
           setUploadingImage(false);
           if (response.success) {
-            const fullImageUrl = `http://localhost:8080${response.imageUrl}`;
+            const fullImageUrl = `https://server.chatherr.com${response.imageUrl}`;
             setMessages((prev) => [...prev, { 
               sender: 'You', 
               imageUrl: fullImageUrl, 

@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
    server: {
     allowedHosts: ['chatherr.com'] 
-    allowedHosts: ['www.chatherr.com']// Add this line
+    // allowedHosts: ['www.chatherr.com']// Add this line
   },
   plugins: [react()],
 })
