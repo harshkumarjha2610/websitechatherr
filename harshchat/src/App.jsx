@@ -227,7 +227,7 @@ const App = () => {
     });
 
     socket.current.on('image-message', ({ imageUrl, sender, expiresAt }) => {
-      const fullImageUrl = `https://backend.chatherr.com/${imageUrl}`;
+      const fullImageUrl = `https://backend.chatherr.com${imageUrl}`;
       setMessages((prev) => [...prev, { 
         sender, 
         imageUrl: fullImageUrl, 
