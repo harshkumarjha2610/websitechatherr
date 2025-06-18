@@ -1,126 +1,6 @@
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import './App.css';
-// At the very top of your entry file (e.g., index.js)
-
-// Add styles for the cursor animation and new buttons
-const cursorStyles = `
-  .cursor {
-    animation: blink 1s infinite;
-    color: #ff8fab;
-  }
-  
-  @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-  }
-  
-  .image-actions {
-    display: flex;
-    gap: 0.8rem;
-    margin-top: 0.8rem;
-    justify-content: center;
-  }
-  
-  .send-image-button {
-    background: linear-gradient(to right, #a5dee5, #84d2e1);
-    color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  .send-image-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .send-image-button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none !important;
-  }
-  
-  .request-photo-button {
-    background: linear-gradient(to right, #ffd89b, #19547b);
-    color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 0.8rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  .request-photo-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .typing-indicator {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #f8f9fa;
-    border-radius: 1rem;
-    margin: 0.5rem 0;
-    color: #666;
-    font-size: 0.85rem;
-    font-style: italic;
-    animation: fadeIn 0.3s ease-out;
-  }
-  
-  .typing-dots {
-    display: flex;
-    gap: 0.2rem;
-  }
-  
-  .typing-dot {
-    width: 4px;
-    height: 4px;
-    background-color: #ff8fab;
-    border-radius: 50%;
-    animation: typingDot 1.4s infinite ease-in-out;
-  }
-  
-  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-  .typing-dot:nth-child(3) { animation-delay: 0s; }
-  
-  @keyframes typingDot {
-    0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
-    40% { transform: scale(1); opacity: 1; }
-  }
-  
-  @media (max-width: 375px) {
-    .image-actions {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
-    .send-image-button,
-    .request-photo-button {
-      padding: 0.5rem 0.75rem;
-      font-size: 0.8rem;
-    }
-  }
-`;
 
 const App = () => {
   // State management
@@ -138,6 +18,7 @@ const App = () => {
   const [welcomeText, setWelcomeText] = useState('');
   const [isPartnerTyping, setIsPartnerTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState(null);
+  const [showJoinForm, setShowJoinForm] = useState(true);
 
   // Refs
   const messagesEndRef = useRef(null);
@@ -219,6 +100,7 @@ const App = () => {
       setChatVisible(true);
       setIsConnecting(false);
       setIsSearchingNewChat(false);
+      setShowJoinForm(false);
       messageInputRef.current?.focus();
     });
 
@@ -227,7 +109,7 @@ const App = () => {
     });
 
     socket.current.on('image-message', ({ imageUrl, sender, expiresAt }) => {
-      const fullImageUrl = `https://backend.chatherr.com${imageUrl}`;
+      const fullImageUrl = `https://backend.chatherr.com/${imageUrl}`;
       setMessages((prev) => [...prev, { 
         sender, 
         imageUrl: fullImageUrl, 
@@ -260,13 +142,7 @@ const App = () => {
     });
 
     socket.current.on('disconnected-from-room', () => {
-      setMessages([]);
-      setPartner('');
-      setRoomId('');
-      setChatVisible(false);
-      setIsSearchingNewChat(false);
-      setStatus('');
-      setIsPartnerTyping(false);
+      resetChat();
     });
 
     socket.current.on('searching-new-chat', (msg) => {
@@ -301,6 +177,19 @@ const App = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isPartnerTyping]);
 
+  // Reset chat completely
+  const resetChat = () => {
+    setMessages([]);
+    setPartner('');
+    setRoomId('');
+    setChatVisible(false);
+    setIsSearchingNewChat(false);
+    setStatus('');
+    setIsPartnerTyping(false);
+    setShowJoinForm(true);
+    setUsername('');
+  };
+
   // Handle typing indicator
   const handleTyping = () => {
     if (socket.current && roomId) {
@@ -322,9 +211,9 @@ const App = () => {
 
   // Event handlers
   const handleNewChat = () => {
-    if (window.confirm('Are you sure you want to start a new chat? This will disconnect you from your current partner.')) {
-      setIsSearchingNewChat(true);
-      socket.current.emit('find-new-chat', { username });
+    if (window.confirm('Are you sure you want to start a new chat? This will disconnect you from your current partner and clear all messages.')) {
+      socket.current.emit('leave-room', { roomId, username });
+      resetChat();
     }
   };
 
@@ -474,7 +363,6 @@ const App = () => {
 
   return (
     <div className="app">
-      <style>{cursorStyles}</style>
       {/* Header */}
       <header className="header">
         <div className="header-content">
@@ -493,33 +381,37 @@ const App = () => {
             </h2>
             <p className="join-quote">"Make new friends in our cozy chat room! 💕 Share messages and cute pictures in this safe, anonymous space. Perfect for connecting with others!"</p>
             
-            <div className="form-group">
-              <label className="label">Your Cute Nickname</label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="input"
-                placeholder="Princess, Sparkle, etc."
-                disabled={isConnecting}
-              />
-            </div>
+            {showJoinForm && (
+              <>
+                <div className="form-group">
+                  <label className="label">Your Nickname</label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="input"
+                    placeholder="Princess, Sparkle, etc."
+                    disabled={isConnecting}
+                  />
+                </div>
 
-            <button
-              onClick={handleJoin}
-              disabled={isConnecting}
-              className={`button-primary ${isConnecting ? 'button-disabled' : ''}`}
-            >
-              {isConnecting ? (
-                <span className="loading-text">
-                  <svg className="spinner" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M12 4a8 8 0 018 8h2a10 10 0 00-10-10v2z" opacity="0.25"/>
-                    <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                  </svg>
-                  Finding a friend...
-                </span>
-              ) : 'Start Chatting 💬'}
-            </button>
+                <button
+                  onClick={handleJoin}
+                  disabled={isConnecting}
+                  className={`button-primary ${isConnecting ? 'button-disabled' : ''}`}
+                >
+                  {isConnecting ? (
+                    <span className="loading-text">
+                      <svg className="spinner" width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M12 4a8 8 0 018 8h2a10 10 0 00-10-10v2z" opacity="0.25"/>
+                        <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                      </svg>
+                      Finding a friend...
+                    </span>
+                  ) : 'Start Chatting 💬'}
+                </button>
+              </>
+            )}
 
             {status && (
               <div className="status-box">
@@ -582,7 +474,7 @@ const App = () => {
                     <path fill="currentColor" d="M12 4a8 8 0 018 8h2a10 10 0 00-10-10v2z" opacity="0.25"/>
                     <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
                   </svg>
-                  Uploading cute pic...
+                  Uploading pic...
                 </div>
               )}
               
