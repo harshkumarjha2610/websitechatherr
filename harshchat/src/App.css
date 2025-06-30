@@ -1,9 +1,9 @@
-/* App.css */
+/* App.css - Blue Theme */
 
 /* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
-/* Animation styles */
+/* Animation styles (unchanged) */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -73,13 +73,13 @@
   40% { transform: scale(1); opacity: 1; }
 }
 
-/* App styles */
+/* App styles - Blue Theme */
 .app {
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  background-color: #fff5f7;
+  background-color: #f5f9ff; /* Light blue background */
   font-family: 'Poppins', -apple-system, sans-serif;
   margin: 0;
   padding: 0;
@@ -88,10 +88,10 @@
 }
 
 .header {
-  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  background: linear-gradient(to right, #4b6cb7, #182848); /* Blue gradient */
   color: white;
   padding: 1rem;
-  box-shadow: 0 4px 15px rgba(255, 105, 140, 0.3);
+  box-shadow: 0 4px 15px rgba(75, 108, 183, 0.3); /* Blue shadow */
   animation: gradientShift 8s ease infinite;
   background-size: 200% 200%;
 }
@@ -131,7 +131,7 @@
   background-color: white;
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(255, 105, 140, 0.2);
+  box-shadow: 0 10px 30px rgba(75, 108, 183, 0.2); /* Blue shadow */
   max-width: 28rem;
   margin: 0 auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -139,14 +139,14 @@
 
 .join-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(255, 105, 140, 0.3);
+  box-shadow: 0 15px 35px rgba(75, 108, 183, 0.3); /* Blue shadow */
 }
 
 .join-title {
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #ff2d75;
+  color: #3a7bd5; /* Blue color */
   margin-top: 0;
   text-align: center;
 }
@@ -166,7 +166,7 @@
 
 .label {
   display: block;
-  color: #ff2d75;
+  color: #3a7bd5; /* Blue color */
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   font-weight: 500;
@@ -175,7 +175,7 @@
 .input {
   width: 100%;
   padding: 0.8rem 1rem;
-  border: 2px solid #ffe5ec;
+  border: 2px solid #e6f0ff; /* Light blue border */
   border-radius: 0.8rem;
   outline: none;
   box-sizing: border-box;
@@ -184,13 +184,13 @@
 }
 
 .input:focus {
-  border-color: #ff8fab;
-  box-shadow: 0 0 0 4px rgba(255, 141, 171, 0.2);
+  border-color: #4b6cb7; /* Blue border */
+  box-shadow: 0 0 0 4px rgba(75, 108, 183, 0.2); /* Blue shadow */
 }
 
 .button-primary {
   width: 100%;
-  background: linear-gradient(to right, #ff8fab, #ff758c);
+  background: linear-gradient(to right, #4b6cb7, #3a7bd5); /* Blue gradient */
   color: white;
   padding: 0.8rem 1rem;
   border-radius: 0.8rem;
@@ -202,12 +202,12 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 105, 140, 0.3);
+  box-shadow: 0 4px 15px rgba(75, 108, 183, 0.3); /* Blue shadow */
 }
 
 .button-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 105, 140, 0.4);
+  box-shadow: 0 6px 20px rgba(75, 108, 183, 0.4); /* Blue shadow */
 }
 
 .button-primary:active {
@@ -223,8 +223,8 @@
 .status-box {
   margin-top: 1.5rem;
   padding: 0.8rem;
-  background-color: #ffe5ec;
-  color: #ff2d75;
+  background-color: #e6f0ff; /* Light blue background */
+  color: #3a7bd5; /* Blue color */
   border-radius: 0.8rem;
   font-size: 0.9rem;
   text-align: center;
@@ -234,7 +234,7 @@
 .chat-container {
   background-color: white;
   border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(255, 105, 140, 0.2);
+  box-shadow: 0 10px 30px rgba(75, 108, 183, 0.2); /* Blue shadow */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -244,12 +244,12 @@
 }
 
 .chat-header {
-  background: linear-gradient(to right, #ff8fab, #ff758c);
+  background: linear-gradient(to right, #4b6cb7, #3a7bd5); /* Blue gradient */
   color: white;
   padding: 0.8rem 1.2rem;
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(255, 105, 140, 0.2);
+  box-shadow: 0 2px 10px rgba(75, 108, 183, 0.2); /* Blue shadow */
 }
 
 .chat-header-icon {
@@ -274,7 +274,7 @@
 }
 
 .new-chat-button {
-  background: linear-gradient(to right, #e909c0, #db0883);
+  background: linear-gradient(to right, #1a2980, #26d0ce); /* Teal-blue gradient */
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.6rem;
@@ -286,12 +286,12 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(255, 105, 140, 0.3);
+  box-shadow: 0 2px 10px rgba(75, 108, 183, 0.3); /* Blue shadow */
 }
 
 .new-chat-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 105, 140, 0.4);
+  box-shadow: 0 4px 15px rgba(75, 108, 183, 0.4); /* Blue shadow */
 }
 
 .new-chat-button-disabled {
@@ -307,32 +307,32 @@
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  background: linear-gradient(to bottom, #fff5f7, #fff);
+  background: linear-gradient(to bottom, #f5f9ff, #fff); /* Light blue gradient */
 }
 
 .message-you {
   max-width: 75%;
   margin-left: auto;
-  background: linear-gradient(to right, #ff8fab, #ff758c);
+  background: linear-gradient(to right, #4b6cb7, #3a7bd5); /* Blue gradient */
   color: white;
   padding: 0.8rem 1.2rem;
   border-radius: 1.2rem 0.2rem 1.2rem 1.2rem;
   word-break: break-word;
   animation: slideInRight 0.3s ease-out;
-  box-shadow: 0 2px 8px rgba(255, 105, 140, 0.2);
+  box-shadow: 0 2px 8px rgba(75, 108, 183, 0.2); /* Blue shadow */
 }
 
 .message-system {
   max-width: 75%;
   margin: 0 auto;
-  background-color: #ffe5ec;
-  color: #ff2d75;
+  background-color: #e6f0ff; /* Light blue background */
+  color: #3a7bd5; /* Blue color */
   padding: 0.8rem 1.2rem;
   border-radius: 1.2rem;
   word-break: break-word;
   text-align: center;
   animation: fadeIn 0.5s ease-out;
-  box-shadow: 0 2px 8px rgba(255, 105, 140, 0.1);
+  box-shadow: 0 2px 8px rgba(75, 108, 183, 0.1); /* Blue shadow */
 }
 
 .message-partner {
@@ -383,7 +383,7 @@
 }
 
 .chat-footer {
-  border-top: 1px solid #ffe5ec;
+  border-top: 1px solid #e6f0ff; /* Light blue border */
   padding: 0.8rem;
   background-color: white;
 }
@@ -396,7 +396,7 @@
 .message-input {
   flex: 1;
   padding: 0.8rem 1rem;
-  border: 2px solid #ffe5ec;
+  border: 2px solid #e6f0ff; /* Light blue border */
   border-radius: 0.8rem;
   outline: none;
   font-size: 1rem;
@@ -404,8 +404,8 @@
 }
 
 .message-input:focus {
-  border-color: #ff8fab;
-  box-shadow: 0 0 0 4px rgba(255, 141, 171, 0.2);
+  border-color: #4b6cb7; /* Blue border */
+  box-shadow: 0 0 0 4px rgba(75, 108, 183, 0.2); /* Blue shadow */
 }
 
 .file-input {
@@ -413,7 +413,7 @@
 }
 
 .image-button {
-  background: linear-gradient(to right, #a5dee5, #84d2e1);
+  background: linear-gradient(to right, #4b6cb7, #3a7bd5); /* Blue gradient */
   color: white;
   padding: 0 1rem;
   border-radius: 0.8rem;
@@ -423,16 +423,16 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(75, 108, 183, 0.1); /* Blue shadow */
 }
 
 .image-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(75, 108, 183, 0.15); /* Blue shadow */
 }
 
 .send-button {
-  background: linear-gradient(to right, #ff8fab, #ff758c);
+  background: linear-gradient(to right, #4b6cb7, #3a7bd5); /* Blue gradient */
   color: white;
   padding: 0 1.2rem;
   border-radius: 0.8rem;
@@ -442,19 +442,19 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 105, 140, 0.3);
+  box-shadow: 0 2px 8px rgba(75, 108, 183, 0.3); /* Blue shadow */
 }
 
 .send-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 105, 140, 0.4);
+  box-shadow: 0 4px 12px rgba(75, 108, 183, 0.4); /* Blue shadow */
 }
 
 .uploading-indicator {
   font-size: 0.8rem;
-  color: #ff8fab;
+  color: #4b6cb7; /* Blue color */
   padding: 0.4rem 0.8rem;
-  background-color: #ffe5ec;
+  background-color: #e6f0ff; /* Light blue background */
   border-radius: 0.8rem;
   display: flex;
   align-items: center;
@@ -471,7 +471,7 @@
 .footer {
   text-align: center;
   padding: 1rem;
-  color: #ff8fab;
+  color: #4b6cb7; /* Blue color */
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -513,7 +513,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
-  color: #ff758c;
+  color: #4b6cb7; /* Blue color */
 }
 
 .modal-close:hover {
@@ -522,7 +522,7 @@
 
 .cursor {
   animation: blink 1s infinite;
-  color: #ff8fab;
+  color: #4b6cb7; /* Blue color */
 }
 
 .image-actions {
@@ -533,7 +533,7 @@
 }
 
 .send-image-button {
-  background: linear-gradient(to right, #a5dee5, #84d2e1);
+  background: linear-gradient(to right, #4b6cb7, #3a7bd5); /* Blue gradient */
   color: white;
   padding: 0.6rem 1rem;
   border-radius: 0.8rem;
@@ -543,14 +543,14 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(75, 108, 183, 0.1); /* Blue shadow */
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .send-image-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(75, 108, 183, 0.15); /* Blue shadow */
 }
 
 .send-image-button:disabled {
@@ -560,7 +560,7 @@
 }
 
 .request-photo-button {
-  background: linear-gradient(to right, #ffd89b, #19547b);
+  background: linear-gradient(to right, #4b6cb7, #182848); /* Dark blue gradient */
   color: white;
   padding: 0.6rem 1rem;
   border-radius: 0.8rem;
@@ -570,14 +570,14 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(75, 108, 183, 0.1); /* Blue shadow */
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .request-photo-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(75, 108, 183, 0.15); /* Blue shadow */
 }
 
 .typing-indicator {
@@ -602,7 +602,7 @@
 .typing-dot {
   width: 4px;
   height: 4px;
-  background-color: #ff8fab;
+  background-color: #4b6cb7; /* Blue color */
   border-radius: 50%;
   animation: typingDot 1.4s infinite ease-in-out;
 }
@@ -610,6 +610,9 @@
 .typing-dot:nth-child(1) { animation-delay: -0.32s; }
 .typing-dot:nth-child(2) { animation-delay: -0.16s; }
 .typing-dot:nth-child(3) { animation-delay: 0s; }
+
+/* Mobile optimizations (unchanged except for color references) */
+
 
 /* Mobile optimizations for better readability */
 @media (max-width: 768px) {
