@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import './App.css';
-
+import { Link } from 'react-router-dom';
 const App = () => {
   // State management
   const [username, setUsername] = useState('');
@@ -15,10 +16,11 @@ const App = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [modalImage, setModalImage] = useState(null);
   const [isSearchingNewChat, setIsSearchingNewChat] = useState(false);
-  const [welcomeText, setWelcomeText] = useState('');
   const [isPartnerTyping, setIsPartnerTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [showJoinForm, setShowJoinForm] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [headlineText, setHeadlineText] = useState('');
 
   // Refs
   const messagesEndRef = useRef(null);
@@ -26,15 +28,26 @@ const App = () => {
   const fileInputRef = useRef(null);
   const socket = useRef(null);
 
-  // Dynamic welcome text effect
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  // Apply dark mode class to document
   useEffect(() => {
-    const welcomeMessages = [
-      "Hey Welcome to Chatherr!",
-      "Ready to make new friends?",
-      "Join our cozy chat community!",
-      "Find your perfect chat buddy!",
-      "Connect with amazing people!",
-      "Start meaningful conversations!"
+    if (darkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+  }, [darkMode]);
+
+  // Dynamic headline effect
+  useEffect(() => {
+    const headlines = [
+      "Meet New People Instantly. Chat Anonymously. No Signup Needed!",
+      "Connect with Strangers Fast. Stay Anonymous. Zero Hassle!",
+      "Find Friends Worldwide. Chat Freely. No Account Required!"
     ];
     
     let currentIndex = 0;
@@ -43,27 +56,27 @@ const App = () => {
     let charIndex = 0;
 
     const typeWriter = () => {
-      const currentMessage = welcomeMessages[currentIndex];
+      const currentHeadline = headlines[currentIndex];
       
       if (isDeleting) {
-        currentText = currentMessage.substring(0, charIndex - 1);
+        currentText = currentHeadline.substring(0, charIndex - 1);
         charIndex--;
       } else {
-        currentText = currentMessage.substring(0, charIndex + 1);
+        currentText = currentHeadline.substring(0, charIndex + 1);
         charIndex++;
       }
       
-      setWelcomeText(currentText);
+      setHeadlineText(currentText);
       
       let typeSpeed = isDeleting ? 50 : 100;
       
-      if (!isDeleting && charIndex === currentMessage.length) {
+      if (!isDeleting && charIndex === currentHeadline.length) {
         typeSpeed = 2000; // Pause at end
         isDeleting = true;
       } else if (isDeleting && charIndex === 0) {
         isDeleting = false;
-        currentIndex = (currentIndex + 1) % welcomeMessages.length;
-        typeSpeed = 500; // Pause before next message
+        currentIndex = (currentIndex + 1) % headlines.length;
+        typeSpeed = 500; // Pause before next headline
       }
       
       setTimeout(typeWriter, typeSpeed);
@@ -74,7 +87,7 @@ const App = () => {
 
   // Socket.io connection and event handlers
   useEffect(() => {
-    socket.current = io('https://backend.chatherr.com/', {
+    socket.current = io('https://backend.chatherr.com', {
       reconnection: true,
       reconnectionAttempts: 5,
       reconnectionDelay: 1000,
@@ -118,7 +131,6 @@ const App = () => {
       }]);
     });
 
-    // Typing indicator handlers
     socket.current.on('user-typing', ({ sender }) => {
       if (sender !== username) {
         setIsPartnerTyping(true);
@@ -229,7 +241,6 @@ const App = () => {
   const sendMessage = () => {
     if (!message.trim()) return;
 
-    // Stop typing indicator when sending message
     if (typingTimeout) {
       clearTimeout(typingTimeout);
       socket.current.emit('stop-typing', { roomId, sender: username });
@@ -361,25 +372,47 @@ const App = () => {
     );
   };
 
+  const friendImages = [
+  '/public/images/image1.jpg',
+  '/public/images/image2.jpg',
+  '/public/images/image3.jpg',
+  '/public/images/image4.png',
+  '/public/images/image5.jpg',
+  '/public/images/image6.jpg',
+  '/public/images/image7.jpg',
+  '/public/images/image8.jpg',
+  // '/images/image9.png',
+  // '/images/image10.png'
+];
+
+
   return (
     <div className="app">
-      {/* Header */}
       <header className="header">
-        <div className="header-content">
-          <span className="header-icon">💖</span>
-          <h1 className="header-title">Chatherr</h1>
-        </div>
-      </header>
+  <div className="header-content">
+    <span className="header-icon">💖</span>
+    <h1 className="header-title">Chatherr</h1>
+    <div className="header-actions">
+      <Link to="/blog" className="blog-button">
+  Anonymous Blogs
+</Link>
+      <button className="theme-toggle" onClick={toggleDarkMode}>
+        {darkMode ? '☀️' : '🌙'}
+      </button>
+    </div>
+  </div>
+</header>
 
-      {/* Main Content */}
       <main className="main">
         {!chatVisible ? (
           <div className="join-card">
-            <h2 className="join-title">
-              {welcomeText}
+            <h2 className="join-headline">
+              {headlineText}
               <span className="cursor">|</span>
             </h2>
-            <p className="join-quote">"Make new friends in our cozy chat room! 💕 Share messages and cute pictures in this safe, anonymous space. Perfect for connecting with others!"</p>
+            <p className="join-subheadline">
+              Connect with real people from around the world. Send photos, talk freely, stay private — all in one click.
+            </p>
             
             {showJoinForm && (
               <>
@@ -421,7 +454,6 @@ const App = () => {
           </div>
         ) : (
           <div className="chat-container">
-            {/* Chat Header */}
             <div className="chat-header">
               <span className="chat-header-icon">👯</span>
               <span className="chat-header-title">{partner}</span>
@@ -452,11 +484,9 @@ const App = () => {
               </div>
             </div>
 
-            {/* Chat Messages */}
             <div className="chat-body">
               {messages.map((msg, idx) => renderMessage(msg, idx))}
               
-              {/* Typing Indicator */}
               {isPartnerTyping && (
                 <div className="typing-indicator">
                   <span>{partner} is typing</span>
@@ -481,7 +511,6 @@ const App = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Message Input */}
             <div className="chat-footer">
               <div className="message-form">
                 <input
@@ -504,7 +533,6 @@ const App = () => {
                 </button>
               </div>
               
-              {/* Image Actions */}
               <div className="image-actions">
                 <input
                   type="file"
@@ -541,9 +569,23 @@ const App = () => {
             </div>
           </div>
         )}
+        
+        <div className="friends-section">
+          <h2 className="friends-title">Chat with Friends Around the World</h2>
+          <div className="friends-gallery">
+            {friendImages.map((image, index) => (
+              <div key={index} className="friend-card">
+                <img
+                  src={image}
+                  alt={`Friend ${index + 1}`}
+                  className="friend-image"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </main>
 
-      {/* Image Modal */}
       {modalImage && (
         <div className="modal" onClick={closeImageModal}>
           <button className="modal-close" onClick={closeImageModal}>
@@ -558,7 +600,6 @@ const App = () => {
         </div>
       )}
 
-      {/* Footer */}
       <footer className="footer">
         Chatherr © {new Date().getFullYear()} - Where people make friends 💕
       </footer>
