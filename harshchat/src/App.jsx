@@ -373,7 +373,7 @@ const App = () => {
   };
 
   const friendImages = [
-  '/images/image1.jpg',
+  '/images/abc.jpg',
   '/images/image2.jpg',
   '/images/image3.jpg',
   '/images/image4.png',
