@@ -373,14 +373,14 @@ const App = () => {
   };
 
   const friendImages = [
-  '/public/Images/image1.jpg',
-  '/public/Images/image2.jpg',
-  '/public/Images/image3.jpg',
-  '/public/Images/image4.png',
-  '/public/Images/image5.jpg',
-  '/public/Images/image6.jpg',
-  '/public/Images/image7.jpg',
-  '/public/Images/image8.jpg',
+  '/images/image1.jpg',
+  '/images/image2.jpg',
+  '/images/image3.jpg',
+  '/images/image4.png',
+  '/images/image5.jpg',
+  '/images/image6.jpg',
+  '/images/image7.jpg',
+  '/images/image8.jpg',
   // '/images/image9.png',
   // '/images/image10.png'
 ];
