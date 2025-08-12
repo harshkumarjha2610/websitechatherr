@@ -1,3 +1,15 @@
+// Import all images at the top
+import image1 from '/images/image1.jpg';
+import image2 from '/images/image2.jpg';
+import image3 from '/images/image3.jpg';
+import image4 from '/images/image4.png';
+import image5 from '/images/image5.jpg';
+import image6 from '/images/image6.jpg';
+import image7 from '/images/image7.jpg';
+import image8 from '/images/image8.jpg';
+
+// Replace the friendImages array
+
 
 import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
@@ -372,17 +384,15 @@ const App = () => {
     );
   };
 
-  const friendImages = [
-  '/images/abc.jpg',
-  '/images/image2.jpg',
-  '/images/image3.jpg',
-  '/images/image4.png',
-  '/images/image5.jpg',
-  '/images/image6.jpg',
-  '/images/image7.jpg',
-  '/images/image8.jpg',
-  // '/images/image9.png',
-  // '/images/image10.png'
+ const friendImages = [
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+  image7,
+  image8,
 ];
 
 
